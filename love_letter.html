@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给你的惊喜</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        love: {
+                            light: '#FFB6C1',
+                            DEFAULT: '#FF69B4',
+                            dark: '#C71585',
+                        },
+                        romantic: {
+                            light: '#FFF0F5',
+                            DEFAULT: '#FFE4E1',
+                        }
+                    },
+                    fontFamily: {
+                        love: ['Dancing Script', 'cursive', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .heart-beat {
+                animation: heartbeat 1.5s ease-in-out infinite;
+            }
+            .float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .fade-in {
+                animation: fadeIn 1.5s ease-in forwards;
+            }
+            .slide-up {
+                animation: slideUp 1s ease-out forwards;
+            }
+            .scale-in {
+                animation: scaleIn 0.8s ease-out forwards;
+            }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FF69B4;
+            transform: rotate(45deg);
+            animation: floatHeart 4s ease-in-out infinite;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FF69B4;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: rotate(45deg) translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen overflow-x-hidden">
+    <!-- 背景心形元素容器 -->
+    <div id="hearts-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- 初始封面 -->
+    <div id="cover" class="fixed inset-0 flex flex-col items-center justify-center z-50 bg-gradient-to-br from-love-dark to-love transition-opacity duration-1000">
+        <h1 class="text-[clamp(2rem,8vw,5rem)] font-love text-white text-center mb-8 opacity-0 fade-in" style="animation-delay: 0.5s">给特别的你</h1>
+        <button id="open-btn" class="mt-8 px-8 py-3 bg-white text-love-dark rounded-full text-lg font-bold shadow-lg hover:bg-love hover:text-white transform hover:scale-105 transition-all duration-300 opacity-0 fade-in" style="animation-delay: 1.5s">
+            点击打开 <i class="fa fa-gift ml-2"></i>
+        </button>
+    </div>
+
+    <!-- 主要内容 -->
+    <div id="content" class="container mx-auto px-4 py-12 relative z-10 opacity-0 scale-95 transition-all duration-1000">
+        <!-- 标题部分 -->
+        <div class="text-center mb-16 mt-8">
+            <h2 class="text-[clamp(1.8rem,6vw,4rem)] font-love text-love-dark mb-4 opacity-0 slide-up" style="animation-delay: 0.3s">我有话想对你说</h2>
+            <div class="w-32 h-1 bg-love mx-auto opacity-0 slide-up" style="animation-delay: 0.6s"></div>
+        </div>
+
+        <!-- 信件部分 -->
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-6 md:p-10 transform transition-all duration-500 hover:shadow-love/20 hover:shadow-xl opacity-0 slide-up" style="animation-delay: 0.9s">
+            <div class="font-love text-[clamp(1.2rem,4vw,1.8rem)] text-gray-700 leading-relaxed space-y-4">
+                <p>亲爱的欣欣，</p>
+                <p>当你看到这些文字的时候，我正鼓起勇气告诉你，你在我心里有多特别。</p>
+                <p>认识你之后，我的世界变得不一样了。你的笑容像阳光一样温暖，你的声音总能让我安心。</p>
+                <p>和你在一起的每一刻，无论是欢笑还是安静的陪伴，都成了我最珍贵的回忆。</p>
+                <p class="text-love-dark font-bold text-center my-6">我喜欢你，不仅仅是一点点，而是很深很深。</p>
+                <p>我希望和你一起创造更多美好的回忆，一起走过未来的每一天。</p>
+                <p class="mt-6">永远想着你的，</p>
+                <p class="text-right mt-2">爱你的人</p>
+            </div>
+        </div>
+
+        <!-- 互动部分 -->
+        <div class="max-w-md mx-auto mt-16 text-center opacity-0 slide-up" style="animation-delay: 1.2s">
+            <p class="text-gray-700 text-lg mb-6">你愿意...</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-8">
+                <button id="yes-btn" class="px-8 py-4 bg-love text-white rounded-full text-lg font-bold shadow-lg hover:bg-love-dark transform hover:scale-110 transition-all duration-300 heart-beat">
+                    愿意 <i class="fa fa-heart ml-2"></i>
+                </button>
+                <button id="no-btn" class="px-8 py-4 bg-gray-200 text-gray-700 rounded-full text-lg font-bold shadow-md hover:bg-gray-300 transition-all duration-300">
+                    再考虑 <i class="fa fa-clock-o ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 爱心图片 -->
+        <div class="flex justify-center mt-16 opacity-0 slide-up" style="animation-delay: 1.5s">
+            <div class="relative w-[clamp(150px,50vw,300px)] h-[clamp(150px,50vw,300px)]">
+                <img src="https://picsum.photos/id/237/600/600" alt="爱心图片" class="w-full h-full object-cover rounded-full border-8 border-love-light shadow-xl float">
+                <div class="absolute -top-4 -right-4 bg-love text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl shadow-lg">
+                    <i class="fa fa-heart"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功弹窗 -->
+    <div id="success-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 transform scale-90 transition-transform duration-500">
+            <div class="text-center">
+                <div class="text-6xl text-love mb-4 heart-beat">
+                    <i class="fa fa-heart"></i>
+                </div>
+                <h3 class="text-2xl font-love text-love-dark mb-4">太好啦！</h3>
+                <p class="text-gray-700 mb-6">我会永远珍惜这份感情，谢谢你！</p>
+                <button id="close-modal" class="px-6 py-3 bg-love text-white rounded-full font-bold hover:bg-love-dark transition-colors duration-300">
+                    <i class="fa fa-smile-o mr-2"></i> 开心
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 等待DOM加载完成
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取元素
+            const cover = document.getElementById('cover');
+            const content = document.getElementById('content');
+            const openBtn = document.getElementById('open-btn');
+            const yesBtn = document.getElementById('yes-btn');
+            const noBtn = document.getElementById('no-btn');
+            const successModal = document.getElementById('success-modal');
+            const closeModal = document.getElementById('close-modal');
+            const heartsContainer = document.getElementById('hearts-container');
+
+            // 打开按钮点击事件
+            openBtn.addEventListener('click', function() {
+                cover.style.opacity = '0';
+                setTimeout(() => {
+                    cover.style.display = 'none';
+                    content.style.opacity = '1';
+                    content.style.transform = 'scale(1)';
+                    createHearts(); // 开始生成心形元素
+                }, 1000);
+            });
+
+            // 不愿意按钮的调皮效果
+            noBtn.addEventListener('mouseover', function() {
+                const x = Math.random() * (window.innerWidth - this.offsetWidth);
+                const y = Math.random() * (window.innerHeight - this.offsetHeight);
+                this.style.position = 'absolute';
+                this.style.left = x + 'px';
+                this.style.top = y + 'px';
+            });
+
+            // 愿意按钮点击事件
+            yesBtn.addEventListener('click', function() {
+                successModal.style.opacity = '1';
+                successModal.style.pointerEvents = 'auto';
+                successModal.querySelector('div').style.transform = 'scale(1)';
+                createMoreHearts(30); // 生成更多心形
+            });
+
+            // 关闭弹窗按钮
+            closeModal.addEventListener('click', function() {
+                successModal.style.opacity = '0';
+                successModal.style.pointerEvents = 'none';
+                successModal.querySelector('div').style.transform = 'scale(0.9)';
+            });
+
+            // 创建心形元素函数
+            function createHearts() {
+                setInterval(() => {
+                    createHeart();
+                }, 300);
+            }
+
+            // 创建更多心形
+            function createMoreHearts(count) {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        createHeart();
+                    }, i * 100);
+                }
+            }
+
+            // 创建单个心形
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                // 随机位置、大小和动画时长
+                const size = Math.random() * 15 + 10;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 5 + 3;
+                const delay = Math.random() * 5;
+                const opacity = Math.random() * 0.7 + 0.3;
+                
+                // 应用样式
+                heart.style.width = size + 'px';
+                heart.style.height = size + 'px';
+                heart.style.left = left + 'vw';
+                heart.style.bottom = '-50px';
+                heart.style.animationDuration = duration + 's';
+                heart.style.animationDelay = delay + 's';
+                heart.style.opacity = opacity;
+                
+                // 随机颜色
+                const colors = ['#FF69B4', '#FF1493', '#DB7093', '#FFB6C1', '#C71585'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.backgroundColor = color;
+                heart.style.setProperty('before', 'background-color', color);
+                heart.style.setProperty('after', 'background-color', color);
+                
+                heartsContainer.appendChild(heart);
+                
+                // 动画结束后移除元素
+                setTimeout(() => {
+                    heart.remove();
+                }, (duration + delay) * 1000);
+            }
+        });
+    </script>
+</body>
+</html>
